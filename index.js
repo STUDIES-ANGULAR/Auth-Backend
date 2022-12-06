@@ -1,8 +1,13 @@
 const express = require( 'express');
 const cors = require('cors');
+require('dotenv').config(); //para que tome la configuracion de env al cargar
 
+console.log( process.env );
 //crear el servidor/aplicacion de express
 const app = express();
+
+//Directorio Público
+app.use( express.static('public') ); //public es el nombre de la carpeta donde estara alojado el front
 
 //app.use = Middleware
 //CORS
@@ -17,6 +22,6 @@ app.use( '/api/auth', require('./routes/auth.routes') ); //midelware de express,
 
 
 
-app.listen( 4000, () => {
-    console.log(`Servidor corriendo en puerto ${ 4000 }`);
+app.listen( process.env.PORT, () => {
+    console.log(`Servidor corriendo en puerto ${ process.env.PORT }`);
 });
