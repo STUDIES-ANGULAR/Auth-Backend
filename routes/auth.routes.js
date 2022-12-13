@@ -13,7 +13,7 @@ router.post('/new',[
     validarCampos
 ], crearUsuario );
 
-//Login de usuario path, [middleware], controlador
+//Login de usuario argumentos (path, [middleware], controlador)
 router.post('/', [
     check('email', 'El email es obligatorio').isEmail(),
     check('password', 'La contraseña no es valida').isLength({min: 6}),
