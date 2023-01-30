@@ -1,9 +1,9 @@
 const express = require( 'express');
 const cors = require('cors');
 const { dbConnection } = require('./db/config');
-require('dotenv').config(); //para que tome la configuracion de env al cargar
+require('dotenv').config(); //para que tome la configuracion de .env al cargar
 
-console.log( process.env );
+
 //crear el servidor/aplicacion de express
 const app = express();
 
@@ -13,7 +13,7 @@ dbConnection()
 //Directorio Público
 app.use( express.static('public') ); //public es el nombre de la carpeta donde estara alojado el front
 
-//app.use = Middleware
+//app.use( Middleware() )
 //CORS
 app.use( cors() );
 

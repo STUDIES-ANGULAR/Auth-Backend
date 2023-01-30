@@ -17,4 +17,5 @@ const UsuarioSchema = Schema({
     },
 });
 
+//mongoose se encarga de ponerles la s de plurar a las tablas (Usuario)
 module.exports = model('Usuario', UsuarioSchema); 

@@ -4,6 +4,8 @@ const { validationResult } = require("express-validator");
 
 
 const validarCampos = ( req, res = response, next) => {
+    
+    // validationResult captura los errores que arroja la peticion
     const error = validationResult( req );
     console.log(error);
     
