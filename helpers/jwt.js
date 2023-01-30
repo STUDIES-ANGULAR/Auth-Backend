@@ -4,6 +4,7 @@ const generarJWT = ( uid, name ) => {
 
     const payload = { uid, name };
 
+    //Usamos una promera ya que el sign no lo es y asi siempre retornamos el Token
     return new Promise( (resolve, reject) => {
 
         //Lo metemos dentro de la promesa para poder esperar que se resuelva
