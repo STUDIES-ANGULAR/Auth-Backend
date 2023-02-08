@@ -39,6 +39,7 @@ const crearUsuario = async (req, res = response) => {
         return res.status(201).json({
             ok: true,
             uid: dbUser.id,
+            email,
             name, 
             token
         });
@@ -89,6 +90,7 @@ const loginUsuario = async(req, res = response) => {
        return res.json({
            ok: true,
            uid: dbUser.id,
+           email,
            name: dbUser.name, 
            token
        })
@@ -100,7 +102,6 @@ const loginUsuario = async(req, res = response) => {
            msg: 'Hable con el administrador'
        })
    }
-
  
 }
 
@@ -109,19 +110,39 @@ const revalidarToken = async (req, res = response) => {
 
     // uid  y name fueron insertados a la request en el middleware validar-jwt
     const { uid, name } = req;
+    try {
+        
+        //Leer base de datos 
+        const dbUser = await Usuario.findById(uid);
+        console.log('dbUser', uid);
 
+        if (!dbUser) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Sesión no permitida'
+            });
+        }
 
-    //Generar el JWT 
-    const token = await generarJWT(uid, name);
+        //Generar el JWT 
+        const token = await generarJWT(uid, dbUser.name);
 
-    return res.json({
-        ok: true,
-        uid,
-        name,
-        token
-    });
+        return res.json({
+            ok: true,
+            uid,
+            name,
+            // name: dbUser.name, //otra opción
+            token,
+            email: dbUser.email
+
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: false,
+            msg: 'Hable con el administrador'
+        })
+    }
 }
-
 
 module.exports = {
     crearUsuario,

@@ -14,10 +14,10 @@ const validarJWT = (req, res = response, netx) => {
 
     try {
         //mandamos la firma para verificar si el token fue firmado con esa misma llave
-        //se el verify se resuelve bien regresesa un objeto que tiene payload 
+        //si el verify se resuelve bien regresesa un objeto que tiene payload 
         const { uid, name } = jwt.verify( token, process.env.SECRET_JWT_SEED );
         
-        /*  al objeto parar por referencia podemos agregarle data a la request en el meddleware
+        /*  al objeto pasar por referencia podemos agregarle data a la request en el meddleware
         y obtenerla en el controller */
         req.uid = uid;
         req.name = name;
